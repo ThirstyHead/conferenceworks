@@ -8,10 +8,10 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
 
-    <link href="/css/index.css" rel="stylesheet">  
+    <link href="/conferenceworks/css/index.css" rel="stylesheet">  
 
-    <script src="/components/cw-header/index.js"></script>
-    <script src="/components/cw-footer/index.js"></script>
+    <script src="/conferenceworks/components/cw-header/index.js"></script>
+    <script src="/conferenceworks/components/cw-footer/index.js"></script>
     <script>
       window.addEventListener('load', init);
 
@@ -22,7 +22,7 @@
 
       async function fetchSchedule(){
         console.log("Fetching schedule");
-        let response = await fetch('/schedule/schedule.json');  
+        let response = await fetch('/conferenceworks/schedule/schedule.json');  
         let schedule = await response.json();
         console.dir(schedule);
         window.localStorage.setItem('schedule', JSON.stringify(schedule));
@@ -52,7 +52,7 @@
     <nav class="breadcrumbs-nav" aria-labelledby="breadcrumbs">
       <h2 id="breadcrumbs" hidden aria-hidden="false">Breadcrumbs</h2>
       <ol>
-        <li><a href="/">Home</a></li>
+        <li><a href="/conferenceworks/">Home</a></li>
         <li>Schedule</li>
       </ol>
     </nav>
