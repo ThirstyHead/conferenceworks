@@ -60,12 +60,12 @@ window.customElements.define('cw-header',
       let content = document.createElement('section');
       content.innerHTML = `
       <header>
-        <a href="/"><span class="branding-logo">Conference</span>Works</a>
+        <a href="/conferenceworks/"><span class="branding-logo">Conference</span>Works</a>
 
         <nav>
           <ul>
-            <li><a href="/schedule">Schedule</a></li>
-            <li><a href="/speakers">Speakers</a></li>
+            <li><a href="/conferenceworks/schedule">Schedule</a></li>
+            <li><a href="/conferenceworks/speakers">Speakers</a></li>
           </ul>
         </nav>
       </header>
