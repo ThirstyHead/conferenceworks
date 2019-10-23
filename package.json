@@ -1,6 +1,6 @@
 {
   "name": "conferenceworks",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A real website for a fictional software conference",
   "main": "index.html",
   "scripts": {
