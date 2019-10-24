@@ -10,6 +10,26 @@
 
     <link href="/conferenceworks/css/index.css" rel="stylesheet">  
 
+    <style>
+      .valid{
+        color: green;
+        display: none;
+      }
+
+      .invalid{
+        color: red;
+        display: none;
+      }
+
+      input:required:valid + .field-message .valid{
+        display: inline;
+      }
+
+      input:required:invalid + .field-message .invalid{
+        display: inline;
+      }
+    </style>
+
     <script src="/conferenceworks/components/cw-header/index.js"></script>
     <script src="/conferenceworks/components/cw-footer/index.js"></script>
     <script>
@@ -43,6 +63,10 @@
                type="text" 
                placeholder="Jane" 
                required>
+        <span class="field-message">
+          <span class="valid">&check;</span>
+          <span class="invalid">&cross; Required</span>
+        </span>
         </p>
 
         <p>
@@ -52,6 +76,10 @@
                type="text" 
                placeholder="Doe" 
                required>
+        <span class="field-message">
+          <span class="valid">&check;</span>
+          <span class="invalid">&cross; Required</span>
+        </span>
         </p>
 
         <p>
@@ -61,6 +89,10 @@
                type="email" 
                placeholder="jane.doe@example.com" 
                required>
+        <span class="field-message">
+          <span class="valid">&check;</span>
+          <span class="invalid">&cross; Valid email required</span>
+        </span>
         </p>
 
         <p>
@@ -69,6 +101,7 @@
                name="phone" 
                type="tel" 
                placeholder="303-555-1212">
+        <span class="field-message"></span>
         </p>
 
       </form>
