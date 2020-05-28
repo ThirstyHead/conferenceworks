@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Profile | ConferenceWorks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Scott Davis <scott@thirstyhead.com>">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link href="/conferenceworks/css/index.css" rel="stylesheet">  
+
+    <style>
+      .valid{
+        color: green;
+        display: none;
+      }
+
+      .invalid{
+        color: red;
+        display: none;
+      }
+
+      input:required:valid + .field-message .valid{
+        display: inline;
+      }
+
+      input:required:invalid + .field-message .invalid{
+        display: inline;
+      }
+    </style>
+
+    <script src="/conferenceworks/components/cw-header/index.js"></script>
+    <script src="/conferenceworks/components/cw-footer/index.js"></script>
+    <script>
+      window.addEventListener('load', init);
+
+      function init(){
+      }
+    </script>
+
+  </head>
+
+  <body>
+    <cw-header></cw-header>
+
+    <nav class="breadcrumbs-nav" aria-labelledby="breadcrumbs">
+      <h2 id="breadcrumbs" hidden aria-hidden="false">Breadcrumbs</h2>
+      <ol>
+        <li><a href="/conferenceworks/">Home</a></li>
+        <li>Profile</li>
+      </ol>
+    </nav>
+
+    <main>
+      <h1>Profile</h1>
+
+      <form>
+        <p>
+        <label for="photo">Photo</label> 
+        <input id="photo" 
+               name="photo" 
+               type="file" 
+               accept="image/gif, image/jpeg, image/png, image/webp">
+        <span class="field-message">
+          <span class="valid">&check;</span>
+          <span class="invalid">&cross; Required</span>
+        </span>
+        </p>
+
+
+      </form>
+
+
+    </main>
+
+    <cw-footer></cw-footer>
+  </body>
+</html>
