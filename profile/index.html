@@ -56,7 +56,26 @@
       <h1>Profile</h1>
 
       <form>
-        <p>
+         <p>
+          <label>Share Profile</label>
+            <label for="keep-private">Keep Private</label> 
+            <input id="keep-private" 
+                   name="profile-share" 
+                   type="radio"
+                   checked> 
+        
+            <label for="upon-request">Upon Request</label> 
+            <input id="upon-request" 
+                   name="profile-share" 
+                   type="radio"> 
+ 
+            <label for="make-public">Make Public</label> 
+            <input id="make-public" 
+                   name="profile-share" 
+                   type="radio"> 
+        </p>
+
+       <p>
         <label for="photo">Photo</label> 
         <input id="photo" 
                name="photo" 
@@ -64,7 +83,44 @@
                accept="image/gif, image/jpeg, image/png, image/webp">
         <span class="field-message">
           <span class="valid">&check;</span>
-          <span class="invalid">&cross; Required</span>
+          <span class="invalid">&cross; </span>
+        </span>
+        </p>
+
+        <p>
+        <label for="biography">Biography</label> 
+        <textarea id="biography" 
+                  name="biography"
+                  rows="4"
+                  maxlength="300"
+                  placeholder="Tell us about yourself">
+        </textarea>  
+        <span class="field-message">
+          <span class="valid">&check;</span>
+          <span class="invalid">&cross; </span>
+        </span>
+        </p>
+
+       <p>
+        <label for="highlight-color">Highlight Color</label> 
+        <input id="highlight-color" 
+               name="highlight-color" 
+               type="color"
+               value="#00ff00"> 
+        <span class="field-message">
+          <span class="valid">&check;</span>
+          <span class="invalid">&cross; </span>
+        </span>
+        </p>
+
+       <p>
+        <label for="birthday">Birthday</label> 
+        <input id="birthday" 
+               name="birthday" 
+               type="date"> 
+        <span class="field-message">
+          <span class="valid">&check;</span>
+          <span class="invalid">&cross; </span>
         </span>
         </p>
 
