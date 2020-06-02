@@ -134,35 +134,41 @@
         </fieldset>
 
 
+        <p>&nbsp;</p>
 
-       <p>
-        <label for="photo">Photo</label> 
-        <input id="photo" 
-               name="photo" 
-               type="file" 
+
+
+        <fieldset>
+          <legend>Optional</legend>
+       
+          <p>
+            <label for="photo">Photo</label>
+            <input id="photo"
+               name="photo"
+               type="file"
                accept="image/gif, image/jpeg, image/png, image/webp">
-        <span class="field-message">
-          <span class="valid">&check;</span>
-          <span class="invalid">&cross; </span>
-        </span>
-        <img id="photo-preview" src="">
-      </p>
+            <span class="field-message">
+              <span class="valid">&check;</span>
+              <span class="invalid">&cross; </span>
+            </span>
+            <img id="photo-preview" src="">
+          </p>
 
-      <p>
-        <label for="biography">Biography</label> 
-        <textarea id="biography" 
+        <!--
+          <p>
+            <label for="biography">Biography</label> 
+            <textarea id="biography" 
                   name="biography"
                   rows="4"
                   maxlength="300"
                   placeholder="Tell us about yourself">
-        </textarea>  
-        <span class="field-message">
-          <span class="valid">&check;</span>
-          <span class="invalid">&cross; </span>
-        </span>
-      </p>
+            </textarea>  
+            <span class="field-message">
+              <span class="valid">&check;</span>
+              <span class="invalid">&cross; </span>
+            </span>
+          </p>
 
-        <!--
        <p>
         <label for="highlight-color">Highlight Color</label> 
         <input id="highlight-color" 
@@ -187,11 +193,13 @@
         </p>
         -->
 
-        <p>
-          <label>&nbsp;</label>
-          <input type="submit" value="Register"></input>
-          <input type="reset">
-        </p>
+        </fieldset>
+
+          <p>
+            <label>&nbsp;</label>
+            <input type="submit" value="Register"></input>
+            <input type="reset">
+          </p>
 
       </form>
 
