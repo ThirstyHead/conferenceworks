@@ -10,6 +10,14 @@
 
     <link href="/conferenceworks/css/index.css" rel="stylesheet">  
 
+    <style>
+      #photo-preview{
+        height: 100px;
+        background-size: contain;
+        border-radius: 50%;
+      }
+    </style>
+
     <script src="/conferenceworks/components/cw-header/index.js"></script>
     <script src="/conferenceworks/components/cw-footer/index.js"></script>
     <script>
@@ -17,8 +25,11 @@
 
       function init(){
         const profileForm = document.querySelector('#profile-form');
-        profileForm.onsubmit = window.addEventListener('submit', handleFormSubmit);
+        window.addEventListener('submit', handleFormSubmit);
         loadForm()
+
+        const photoField = profileForm.elements['photo'];
+        window.addEventListener('change', updatePhotoThumbnail); 
       }
 
       function loadForm(){
@@ -36,6 +47,16 @@
 
         const profileForm = document.querySelector('#profile-form');
         const fields = new FormData(profileForm);
+      }
+
+      function updatePhotoThumbnail(event){
+        const profileForm = document.querySelector('#profile-form');
+        const photoField = profileForm.elements['photo'];
+        const imgList = photoField.files;
+        for(const img of imgList){
+          let photoPreview = document.querySelector('#photo-preview');
+          photoPreview.src = URL.createObjectURL(img);
+        }
       }
     </script>
 
@@ -124,9 +145,10 @@
           <span class="valid">&check;</span>
           <span class="invalid">&cross; </span>
         </span>
-        </p>
+        <img id="photo-preview" src="">
+      </p>
 
-        <p>
+      <p>
         <label for="biography">Biography</label> 
         <textarea id="biography" 
                   name="biography"
@@ -138,7 +160,7 @@
           <span class="valid">&check;</span>
           <span class="invalid">&cross; </span>
         </span>
-        </p>
+      </p>
 
         <!--
        <p>
@@ -164,6 +186,12 @@
         </span>
         </p>
         -->
+
+        <p>
+          <label>&nbsp;</label>
+          <input type="submit" value="Register"></input>
+          <input type="reset">
+        </p>
 
       </form>
 
