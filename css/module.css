@@ -1,3 +1,6 @@
+/***********
+  Speakers
+ ***********/
 .speakers figure{
   display: inline-block;
 }
@@ -15,6 +18,9 @@
   font-style: italic;
 }
 
+/**************
+  Breadcrumbs
+ **************/
 .breadcrumbs-nav {
   display: inline;
 }
@@ -36,3 +42,39 @@
 .breadcrumbs-nav li:last-child::after{
   content: "";
 }
+
+/******************
+  Form Validation
+ ******************/
+  .valid{
+    color: green;
+    display: none;
+  }
+
+  .invalid{
+    color: red;
+    display: none;
+  }
+
+  input:required:valid + .field-message .valid{
+    display: inline;
+  }
+
+  input:required:invalid + .field-message .invalid{
+    display: inline;
+  }
+
+  form:valid{
+    /* background-color: green; */
+  }
+
+  form:invalid{
+    /* background-color: red; */
+  }
+
+
+
+
+
+
+

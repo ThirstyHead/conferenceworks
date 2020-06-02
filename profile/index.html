@@ -10,32 +10,32 @@
 
     <link href="/conferenceworks/css/index.css" rel="stylesheet">  
 
-    <style>
-      .valid{
-        color: green;
-        display: none;
-      }
-
-      .invalid{
-        color: red;
-        display: none;
-      }
-
-      input:required:valid + .field-message .valid{
-        display: inline;
-      }
-
-      input:required:invalid + .field-message .invalid{
-        display: inline;
-      }
-    </style>
-
     <script src="/conferenceworks/components/cw-header/index.js"></script>
     <script src="/conferenceworks/components/cw-footer/index.js"></script>
     <script>
       window.addEventListener('load', init);
 
       function init(){
+        const profileForm = document.querySelector('#profile-form');
+        profileForm.onsubmit = window.addEventListener('submit', handleFormSubmit);
+        loadForm()
+      }
+
+      function loadForm(){
+        const profileForm = document.querySelector('#profile-form');
+        const fields = profileForm.elements;
+        const currentUser = localStorage.getItem('currentUser'); 
+        const currentProfile = JSON.parse(localStorage.getItem(currentUser));
+        for(let [key, value] of Object.entries(currentProfile)){
+          fields[key].value = value;
+        }
+      }
+
+      function handleFormSubmit(event){
+        event.preventDefault();
+
+        const profileForm = document.querySelector('#profile-form');
+        const fields = new FormData(profileForm);
       }
     </script>
 
@@ -55,25 +55,64 @@
     <main>
       <h1>Profile</h1>
 
-      <form>
-         <p>
-          <label>Share Profile</label>
-            <label for="keep-private">Keep Private</label> 
-            <input id="keep-private" 
-                   name="profile-share" 
-                   type="radio"
-                   checked> 
-        
-            <label for="upon-request">Upon Request</label> 
-            <input id="upon-request" 
-                   name="profile-share" 
-                   type="radio"> 
- 
-            <label for="make-public">Make Public</label> 
-            <input id="make-public" 
-                   name="profile-share" 
-                   type="radio"> 
-        </p>
+      <form id="profile-form" name="profile-form">
+        <fieldset>
+          <legend>Required</legend>
+
+          <p>
+            <label for="firstname">First Name</label> 
+            <input id="firstname" 
+                   name="firstname" 
+                   type="text" 
+                   placeholder="Jane" 
+                   required>
+            <span class="field-message">
+              <span class="valid">&check;</span>
+              <span class="invalid">&cross; Required</span>
+            </span>
+          </p>
+
+          <p>
+            <label for="lastname">Last Name</label> 
+            <input id="lastname" 
+                   name="lastname" 
+                   type="text" 
+                   placeholder="Doe" 
+                   required>
+            <span class="field-message">
+              <span class="valid">&check;</span>
+              <span class="invalid">&cross; Required</span>
+            </span>
+          </p>
+
+          <p>
+            <label for="email">Email</label> 
+            <input id="email" 
+                   name="email" 
+                   type="email" 
+                   placeholder="jane.doe@example.com" 
+                   required>
+            <span class="field-message">
+              <span class="valid">&check;</span>
+              <span class="invalid">&cross; Required; Valid email</span>
+            </span>
+          </p>
+
+          <p>
+            <label for="password">Password</label> 
+            <input id="password" 
+                   name="password" 
+                   type="password"
+                   minlength="8"
+                   required>
+            <span class="field-message">
+              <span class="valid">&check;</span>
+              <span class="invalid">&cross; Required; Must be at least 8 characters</span>
+            </span>
+          </p>
+        </fieldset>
+
+
 
        <p>
         <label for="photo">Photo</label> 
@@ -101,6 +140,7 @@
         </span>
         </p>
 
+        <!--
        <p>
         <label for="highlight-color">Highlight Color</label> 
         <input id="highlight-color" 
@@ -123,7 +163,7 @@
           <span class="invalid">&cross; </span>
         </span>
         </p>
-
+        -->
 
       </form>
 
