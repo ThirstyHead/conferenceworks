@@ -58,6 +58,7 @@
         //NOTE: This stores the password in cleartext. 
         //      In a real app, passwords should never be stored locally. 
         localStorage.setItem(fields.get('email'), formJsonString);        
+        window.location.assign('/conferenceworks/profile');
       }
     </script>
 
