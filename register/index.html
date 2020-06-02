@@ -28,7 +28,16 @@
       input:required:invalid + .field-message .invalid{
         display: inline;
       }
+
+      form:valid{
+        /* background-color: green; */
+      }
+
+      form:invalid{
+        /* background-color: red; */
+      }
     </style>
+
 
     <script src="/conferenceworks/components/cw-header/index.js"></script>
     <script src="/conferenceworks/components/cw-footer/index.js"></script>
@@ -36,6 +45,19 @@
       window.addEventListener('load', init);
 
       function init(){
+        const registrationForm = document.querySelector('#registration-form');
+        registrationForm.onsubmit = window.addEventListener('submit', handleFormSubmit);
+      }
+
+      function handleFormSubmit(event){
+        event.preventDefault();
+
+        const registrationForm = document.querySelector('#registration-form');
+        const fields = new FormData(registrationForm);
+        const formJsonString = JSON.stringify(Object.fromEntries(fields.entries()));
+        //NOTE: This stores the password in cleartext. 
+        //      In a real app, passwords should never be stored locally. 
+        localStorage.setItem(fields.get('email'), formJsonString);        
       }
     </script>
 
@@ -52,10 +74,12 @@
       </ol>
     </nav>
 
-    <main class="speakers">
+    <main>
       <h1>Register</h1>
 
-      <form>
+
+      <form id="registration-form" name="registration-form">
+
         <p>
         <label for="firstname">First Name</label> 
         <input id="firstname" 
@@ -91,17 +115,27 @@
                required>
         <span class="field-message">
           <span class="valid">&check;</span>
-          <span class="invalid">&cross; Valid email required</span>
+          <span class="invalid">&cross; Required; Valid email</span>
         </span>
         </p>
 
         <p>
-        <label for="phone">Phone</label> 
-        <input id="phone" 
-               name="phone" 
-               type="tel" 
-               placeholder="303-555-1212">
-        <span class="field-message"></span>
+        <label for="password">Password</label> 
+        <input id="password" 
+               name="password" 
+               type="password"
+               minlength="8"
+               required>
+        <span class="field-message">
+          <span class="valid">&check;</span>
+          <span class="invalid">&cross; Required; Must be at least 8 characters</span>
+        </span>
+        </p>
+
+        <p>
+          <label>&nbsp;</label>
+          <input type="submit" value="Register"></input>
+          <input type="reset">
         </p>
 
       </form>
