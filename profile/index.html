@@ -32,7 +32,10 @@
         enableAutosave('#profile-form');
 
         const photoField = profileForm.elements['photo'];
-        window.addEventListener('change', updatePhotoThumbnail); 
+        photoField.addEventListener('change', handlePhotoChange); 
+
+        const photoPreview = document.querySelector('#photo-preview');
+        photoPreview.addEventListener('load', handlePhotoPreviewLoad);
       }
 
       function loadForm(){
@@ -46,7 +49,7 @@
           }
 
           if(key === 'photo-preview'){
-            loadPhotoThumbnail(value);
+            loadPhotoPreview(value);
           }
         }
       }
@@ -70,11 +73,11 @@
       }
 
       function inputAutosave(event){
-        //let currentUser = localStorage.getItem('currentUser');
-        //let profileJson = JSON.parse(localStorage.getItem(currentUser));
         let field = event.target;
         let fieldName = event.target.name;
         let fieldValue = event.target.value;
+        
+        if(fieldName === 'photo'){ return; }
 
         if(field.checkValidity()){
           if(fieldName === 'email'){
@@ -82,14 +85,7 @@
             localStorage.setItem('currentUser', currentUser);
           }
 
-          if(fieldName === 'photo'){
-            fieldName = 'photo-preview';
-            fieldValue = imgToString('#photo-preview');
-          }
-
           save(fieldName, fieldValue);
-          //profileJson[fieldName] = fieldValue;
-          //localStorage.setItem(currentUser, JSON.stringify(profileJson));
         }
       }
 
@@ -98,31 +94,24 @@
         // each field is saved as changes are made, so no submit button is needed.
       }
 
-      function updatePhotoThumbnail(event){
+      function handlePhotoChange(event){
         const profileForm = document.querySelector('#profile-form');
         const photoField = profileForm.elements['photo'];
         const imgFile = photoField.files[0];
 
         const reader = new FileReader();
         reader.addEventListener('load', function(){
-          loadPhotoThumbnail(reader.result);
+          const result = reader.result;
+          loadPhotoPreview(result);
         }, false);
         reader.readAsDataURL(imgFile);
-
-
-        /*
-        const imgList = photoField.files;
-        for(const img of imgList){
-          // let photoPreview = document.querySelector('#photo-preview');
-          // photoPreview.src = URL.createObjectURL(img);
-          console.log(img);
-          loadPhotoThumbnail(URL.createObjectURL(img));
-          // loadPhotoThumbnail(imgToString('#photo-preview'));
-        }
-        */
       }
 
-      function loadPhotoThumbnail(src){
+      function handlePhotoPreviewLoad(event){
+        save('photo-preview', imgToString('#photo-preview'));
+      }
+
+      function loadPhotoPreview(src){
           let photoPreview = document.querySelector('#photo-preview');
           photoPreview.src = src; 
       }
