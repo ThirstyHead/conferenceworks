@@ -25,9 +25,12 @@
     <script>
       window.addEventListener('load', init);
 
+      /**
+       * Called on window.load
+       */
       function init(){
         const profileForm = document.querySelector('#profile-form');
-        window.addEventListener('submit', handleFormSubmit);
+        profileForm.addEventListener('submit', handleFormSubmit);
         loadForm();
         enableAutosave('#profile-form');
 
@@ -38,6 +41,10 @@
         photoPreview.addEventListener('load', handlePhotoPreviewLoad);
       }
 
+      /**
+       * Loads the form with data stored in localStorage
+       * NOTE: photo field is ignored; photo-preview is loaded instead
+       */
       function loadForm(){
         const profileForm = document.querySelector('#profile-form');
         const fields = profileForm.elements;
@@ -54,6 +61,9 @@
         }
       }
 
+      /**
+       * Saves the key/value pair for currentUser to localStorage
+       */
       function save(key, value){
         let currentUser = localStorage.getItem('currentUser');
         let profileJson = JSON.parse(localStorage.getItem(currentUser));
@@ -61,18 +71,28 @@
         localStorage.setItem(currentUser, JSON.stringify(profileJson));
       }
 
+      /** 
+       * Adds event listeners to each field in the form 
+       * to automatically save changes on a per-field basis
+       * instead of a whole-form submit event.
+       */
       function enableAutosave(formSelector){
         const form = document.querySelector(formSelector);
         const fields = form.elements;
         for(const field of fields){
           switch(field.tagName){
             case 'INPUT':
-              window.addEventListener('change', inputAutosave);
+              window.addEventListener('change', handleInputChange);
           }
         }
       }
 
-      function inputAutosave(event){
+      /**
+       * eventListener for input change event
+       * NOTE: photo field is ignored
+       * NOTE: special case for email field; changes currentUser
+       */ 
+      function handleInputChange(event){
         let field = event.target;
         let fieldName = event.target.name;
         let fieldValue = event.target.value;
@@ -89,11 +109,20 @@
         }
       }
 
+      /**
+       * eventListener for form submit event
+       * NOTE: this handler supresses the normal form submit event
+       *       because each individual field saves on change
+       */
       function handleFormSubmit(event){
         event.preventDefault();
-        // each field is saved as changes are made, so no submit button is needed.
       }
 
+      /**
+       * eventListener for photo field
+       * NOTE: changes to the photo field trigger a src change
+       *       for the photo-preview img element.
+       */
       function handlePhotoChange(event){
         const profileForm = document.querySelector('#profile-form');
         const photoField = profileForm.elements['photo'];
@@ -107,15 +136,28 @@
         reader.readAsDataURL(imgFile);
       }
 
+      /** 
+       * eventListener for photo-preview element
+       * NOTE: once the img is loaded, the DataURL is saved to localStorage
+       */
       function handlePhotoPreviewLoad(event){
         save('photo-preview', imgToString('#photo-preview'));
       }
 
+      /**
+       * convenience function to change the src of the photo-preview element
+       */
       function loadPhotoPreview(src){
           let photoPreview = document.querySelector('#photo-preview');
           photoPreview.src = src; 
       }
 
+      /**
+       * This function converts an onscreen image to a DataURL.
+       * By converting an img to a String, it can be saved in localStorage.
+       * NOTE: the screen dimensions (as defined by CSS) are used
+       *       for the image size instead of the original image dimensions.
+       */
       function imgToString(imgSelector){
         const imgElement = document.querySelector(`${imgSelector}`);
         let imgCanvas = document.createElement('canvas');
