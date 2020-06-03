@@ -41,8 +41,21 @@
         const currentUser = localStorage.getItem('currentUser'); 
         const currentProfile = JSON.parse(localStorage.getItem(currentUser));
         for(let [key, value] of Object.entries(currentProfile)){
-          fields[key].value = value;
+          if(fields[key]){
+            fields[key].value = value;
+          }
+
+          if(key === 'photo-preview'){
+            loadPhotoThumbnail(value);
+          }
         }
+      }
+
+      function save(key, value){
+        let currentUser = localStorage.getItem('currentUser');
+        let profileJson = JSON.parse(localStorage.getItem(currentUser));
+        profileJson[key] = value;
+        localStorage.setItem(currentUser, JSON.stringify(profileJson));
       }
 
       function enableAutosave(formSelector){
@@ -57,17 +70,26 @@
       }
 
       function inputAutosave(event){
-        let currentUser = localStorage.getItem('currentUser');
-        let profileJson = JSON.parse(localStorage.getItem(currentUser));
-        
-        if(event.target.checkValidity()){
-          if(event.target.name === 'email'){
-            currentUser = event.target.value;
+        //let currentUser = localStorage.getItem('currentUser');
+        //let profileJson = JSON.parse(localStorage.getItem(currentUser));
+        let field = event.target;
+        let fieldName = event.target.name;
+        let fieldValue = event.target.value;
+
+        if(field.checkValidity()){
+          if(fieldName === 'email'){
+            currentUser = fieldValue;
             localStorage.setItem('currentUser', currentUser);
           }
 
-          profileJson[event.target.name] = event.target.value;
-          localStorage.setItem(currentUser, JSON.stringify(profileJson));
+          if(fieldName === 'photo'){
+            fieldName = 'photo-preview';
+            fieldValue = imgToString('#photo-preview');
+          }
+
+          save(fieldName, fieldValue);
+          //profileJson[fieldName] = fieldValue;
+          //localStorage.setItem(currentUser, JSON.stringify(profileJson));
         }
       }
 
@@ -79,11 +101,30 @@
       function updatePhotoThumbnail(event){
         const profileForm = document.querySelector('#profile-form');
         const photoField = profileForm.elements['photo'];
+        const imgFile = photoField.files[0];
+
+        const reader = new FileReader();
+        reader.addEventListener('load', function(){
+          loadPhotoThumbnail(reader.result);
+        }, false);
+        reader.readAsDataURL(imgFile);
+
+
+        /*
         const imgList = photoField.files;
         for(const img of imgList){
-          let photoPreview = document.querySelector('#photo-preview');
-          photoPreview.src = URL.createObjectURL(img);
+          // let photoPreview = document.querySelector('#photo-preview');
+          // photoPreview.src = URL.createObjectURL(img);
+          console.log(img);
+          loadPhotoThumbnail(URL.createObjectURL(img));
+          // loadPhotoThumbnail(imgToString('#photo-preview'));
         }
+        */
+      }
+
+      function loadPhotoThumbnail(src){
+          let photoPreview = document.querySelector('#photo-preview');
+          photoPreview.src = src; 
       }
 
       function imgToString(imgSelector){
