@@ -51,6 +51,9 @@
 
         const photoPreview = document.querySelector('#photo-preview');
         photoPreview.addEventListener('load', handlePhotoPreviewLoad);
+
+        const phoneField = profileForm.elements['phone'];
+        phoneField.addEventListener('change', handlePhoneChange); 
       }
 
       /**
@@ -69,6 +72,11 @@
 
           if(key === 'photo-preview'){
             loadPhotoPreview(value);
+          }
+
+          if(key === 'phone' && value !== ''){
+            const preferredPhoneField = document.querySelector('#preferred-phone');
+            preferredPhoneField.removeAttribute('disabled');
           }
         }
       }
@@ -129,6 +137,32 @@
       function handleFormSubmit(event){
         event.preventDefault();
       }
+
+      /**
+       * eventListener for phone field
+       * NOTE: changes to the phone field enable/disable
+       *       the preferred-phone radio button for the
+       *       the preferred-contact field
+       */
+      function handlePhoneChange(event){
+        const profileForm = document.querySelector('#profile-form');
+        const phoneField = profileForm.elements['phone'];
+        const preferredPhoneField = document.querySelector('#preferred-phone');
+        const preferredEmailField = document.querySelector('#preferred-email');
+
+        if(phoneField.value === ""){
+          preferredPhoneField.setAttribute('disabled', '');
+          preferredEmailField.checked = true;
+          preferredEmailField.dispatchEvent(new UIEvent('change', {
+            view: window,
+            bubbles: true,
+            cancelable: true}));
+        }else{
+          preferredPhoneField.removeAttribute('disabled');
+        }
+      }
+
+
 
       /**
        * eventListener for photo field
