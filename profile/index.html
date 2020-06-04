@@ -17,6 +17,19 @@
         border-radius: 50%;
       }
 
+      label[data-label="radio"]{
+        text-align: left;
+        width: auto;
+      }
+
+      input:disabled + label[data-label="radio"]{
+        font-style: italic;
+        font-color: #ccc
+      }
+
+      input:disabled + label[data-label="radio"]::after{
+        content: " (Please provide a phone number to enable)"
+      }
     </style>
 
     <script src="/conferenceworks/components/cw-header/index.js"></script>
@@ -280,6 +293,31 @@
             </span>
             <img id="photo-preview" src="">
           </p>
+
+          <p>
+            <label for="phone">Phone</label>
+            <input id="phone"
+                   name="phone"
+                   type="tel">
+          </p>
+
+          <p>
+            <label>Preferred Contact Method</label>
+            <input id="preferred-email"
+                   name="preferred-contact"
+                   type="radio"
+                   value="email"
+                   checked>
+            <label for="preferred-email" data-label="radio">Email</label>
+            <input id="preferred-phone"
+                   name="preferred-contact"
+                   type="radio"
+                   value="phone"
+                   disabled
+                   >
+            <label for="preferred-phone" data-label="radio">Phone</label>
+          </p>
+
 
         <!--
           <p>
